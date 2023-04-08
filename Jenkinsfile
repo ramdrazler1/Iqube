@@ -3,7 +3,7 @@ pipeline {
     environment {
         BUILD_NAME = 'iqube'
         PATH = '/var/jenkins_home/workspace/Dev-Test/'
-        EXE_PATH='/home/ubuntu/iqube'
+        EXE_PATH='/home/ubuntu/iqube/Dev-Test'
     }
     stages {
         stage("Git Checkout") {
@@ -13,7 +13,7 @@ pipeline {
         } 
          stage("Copy the Build File") {
             steps {
-                sh "docker cp -r silly_carson:$env.PATH/* /home/ubuntu/iqube"
+                sh "sudo docker cp  silly_carson:$env.PATH /home/ubuntu/iqube"
             }
         } 
         stage("Build the Images") {
