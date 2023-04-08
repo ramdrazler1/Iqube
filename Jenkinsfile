@@ -1,6 +1,6 @@
 pipeline {
     agent {
-    label Node-1
+        label 'Node-1'
     }
     environment {
         BUILD_NAME = 'iqube'
@@ -14,7 +14,7 @@ pipeline {
         } 
         stage("Copy the Build File") {
             steps {
-                sh "docker cp silly_carson:/var/jenkins_home/workspace/Dev-Test/ /home/ubuntu/iqube"
+                sh "docker cp silly_carson:/var/jenkins_home/workspace/Dev-Test/Dockerfile /home/ubuntu/iqube"
             }
         }
         stage("Build the Images") {
