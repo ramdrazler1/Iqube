@@ -13,14 +13,13 @@ pipeline{
             }
         }  
     }
-     stages{
-        stage("Build the Images"){
-            steps{
-             sh 'docker build -t $env.BUILD_NAME:latest $env.path'
-            
-            }
-        }  
-    }
+    stages {
+        stage("Build the Images") {
+          steps {
+               sh "docker build -t $env.BUILD_NAME:latest $env.path"
+        }
+    }  
+}
   
   
 }
