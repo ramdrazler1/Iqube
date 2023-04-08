@@ -13,7 +13,7 @@ pipeline {
         } 
          stage("Copy the Build File") {
             steps {
-                sh "sudo docker cp  silly_carson:$env.PATH /home/ubuntu/iqube"
+                sh "sudo docker cp  silly_carson:/var/jenkins_home/workspace/Dev-Test/ /home/ubuntu/iqube"
             }
         } 
         stage("Build the Images") {
