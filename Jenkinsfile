@@ -16,6 +16,12 @@ pipeline {
             steps {
                 sh "docker build -t $BUILD_NAME:latest $EXE_PATH"
             }
+        }   
+        stage("Run the Images") {
+            steps {
+                sh "docker run -itd -p 8001:80 $BUILD_NAME:latest"
+            }
         }          
+        
     }
 }
