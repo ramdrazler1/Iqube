@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent {
+    label Node-1
+    }
     environment {
         BUILD_NAME = 'iqube'
         EXE_PATH = '/home/ubuntu/iqube/Dev-Test'
