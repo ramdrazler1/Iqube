@@ -1,5 +1,10 @@
 pipeline{
   agent any
+  environment{
+          BUILD_NAME='iqube'
+          PATH='/var/jenkins_home/workspace/Dev-Test/'
+            
+  }
     stages{
         stage("Git Checkout"){
             steps{
@@ -8,4 +13,14 @@ pipeline{
             }
         }  
     }
+    stages{
+        stage("Build the Images"){
+            steps{
+             sh 'docker build -t $env.BUILD_NAME:latest $env.path'
+            
+            }
+        }  
+    }
+  
+  
 }
