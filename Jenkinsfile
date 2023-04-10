@@ -37,9 +37,7 @@ pipeline {
         }          
         post {
         success {
-            emailext body: 'Your build has completed successfully.', 
-            subject: 'Build Success Notification', 
-            to: 'ram7540123@gmail.com, karthik96nv@gmail.com'
+            emailext body: 'Your build has completed successfully.', subject: 'Build Success Notification', to: 'ram7540123@gmail.com, karthik96nv@gmail.com'
         }
     }
     }
