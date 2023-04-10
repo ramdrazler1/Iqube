@@ -16,8 +16,8 @@ pipeline {
         stage("Stop and Remove the Existing Container"){
           steps{
              sh '''
-              docker stop $BUILD_NAME:latest
-              docker rm $BUILD_NAME:latest
+              docker stop $BUILD_NAME
+              docker rm $BUILD_NAME
            '''
             echo 'Container has been Stopped and Removed'  
             }
