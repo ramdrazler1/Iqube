@@ -13,7 +13,15 @@ pipeline {
             }
         } 
                  
-  
+        stage("Stop and Remove the Existing Container"){
+          steps{
+             sh '''
+              docker stop $BUILD_NAME:latest
+              docker rm $BUILD_NAME:latest
+           '''
+            echo 'Container has been Stopped and Removed'  
+            }
+        }    
 
         
         stage("Build the Images") {
