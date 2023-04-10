@@ -31,7 +31,8 @@ pipeline {
         }   
         stage("Run the Images") {
             steps {
-                sh "docker run -itd -p 8001:80 $BUILD_NAME:latest"
+             sh 'docker run -d --name iqube -p 3000:3000 $BUILD_NAME:latest '
+             echo 'Image Running in Container'  
             }
         }          
         
