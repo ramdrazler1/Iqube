@@ -1,5 +1,5 @@
 pipeline {
-    agent 'none'
+    agent none
     environment {
         BUILD_NAME = 'iqube'
         EXE_PATH = '/home/ubuntu/iqube/workspace/Dev-Test'
