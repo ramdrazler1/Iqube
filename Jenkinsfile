@@ -19,6 +19,7 @@ pipeline {
         }
                  
         stage("Stop and Remove the Existing Container"){
+            agent { label "${params.AGENT}" }
             steps{
                 sh '''
                     docker stop $BUILD_NAME
@@ -30,11 +31,13 @@ pipeline {
 
         
         stage("Build the Images") {
+            agent { label "${params.AGENT}" }
             steps {
                 sh "docker build -t $BUILD_NAME:latest $EXE_PATH"
             }
         }   
         stage("Run the Images") {
+            agent { label "${params.AGENT}" }
             steps {
                 sh 'docker run -d --name iqube -p 3000:3000 $BUILD_NAME:latest '
                 echo 'Image Running in Container'  
