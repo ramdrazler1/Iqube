@@ -12,6 +12,17 @@ pipeline {
                 git branch: 'main', credentialsId: 'b53df08d-9aad-42ae-8351-d0b4d2f13a67', url: 'https://github.com/ramdrazler1/Iqube.git'
             }
         } 
+               
+        stage("Stop and Remove the Existing Container"){
+        steps{
+           sh '''
+           docker stop $BUILD_NAME:latest
+           docker rm $BUILD_NAME:latest
+           '''
+            echo 'Container has been Stopped and Removed'  
+            }
+        }
+        
         stage("Build the Images") {
             steps {
                 sh "docker build -t $BUILD_NAME:latest $EXE_PATH"
