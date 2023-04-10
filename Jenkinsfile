@@ -6,12 +6,21 @@ pipeline {
         BUILD_NAME = 'iqube'
         EXE_PATH = '/home/ubuntu/iqube/workspace/Dev-Test'
     }
+    parameters {
+        string(name: 'GIT_REPO_URL', description: 'Enter the Git repository URL')
+        string(name: 'GIT_BRANCH', description: 'Enter the Git branch name')
+    }
     stages {
-        stage("Git Checkout") {
+            stage('Checkout') {
             steps {
-                git branch: 'main', credentialsId: 'b53df08d-9aad-42ae-8351-d0b4d2f13a67', url: 'https://github.com/ramdrazler1/Iqube.git'
+                git branch: "${params.GIT_BRANCH}", url: "${params.GIT_REPO_URL}"
             }
-        } 
+        }
+//        stage("Git Checkout") {
+//            steps {
+//                git branch: 'main', credentialsId: 'b53df08d-9aad-42ae-8351-d0b4d2f13a67', url: 'https://github.com/ramdrazler1/Iqube.git'
+//            }
+//       } 
                  
         stage("Stop and Remove the Existing Container"){
           steps{
@@ -35,10 +44,5 @@ pipeline {
              echo 'Image Running in Container'  
             }
         }          
-        post {
-        success {
-            emailext body: 'Your build has completed successfully.', subject: 'Build Success Notification', to: 'ram7540123@gmail.com, karthik96nv@gmail.com'
-        }
-    }
     }
 }
