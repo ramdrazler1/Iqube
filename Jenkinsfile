@@ -1,7 +1,5 @@
 pipeline {
-    agent {
-        label 'Node-1'
-    }
+    agent 'none'
     environment {
         BUILD_NAME = 'iqube'
         EXE_PATH = '/home/ubuntu/iqube/workspace/Dev-Test'
@@ -9,9 +7,12 @@ pipeline {
     parameters {
         string(name: 'GIT_REPO_URL', description: 'Enter the Git repository URL')
         string(name: 'GIT_BRANCH', description: 'Enter the Git branch name')
+        choice(name: 'Node-1', choices: ['Sprint', 'Stage', 'UAT'], description: 'Select the Build Environment')
     }
     stages {
-            stage('Checkout') {
+            stage('Checkout')
+            agent { label params.Node-1 }
+        {
             steps {
                 git url: "${params.GIT_REPO_URL}", branch: "${params.GIT_BRANCH}"
             }
