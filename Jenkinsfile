@@ -42,7 +42,15 @@ pipeline {
                 sh 'docker run -d --name iqube -p 3000:3000 $BUILD_NAME:latest '
                 echo 'Image Running in Container'  
             }
-        }          
+        } 
+            post {
+        success {
+            emailext body: 'Build success', 
+                     subject: 'Build Notification', 
+                     to: 'ram7540123@gmail.com, karthik96nv@gmail.com'
+        }
+    }
+        
     }
 }
 //        stage("Git Checkout") {
