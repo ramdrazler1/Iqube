@@ -46,7 +46,7 @@ pipeline {
 //            post {
 //        success {
 //           emailext body: 'Build success', 
-/                     subject: 'Build Notification', 
+//                     subject: 'Build Notification', 
 //                     to: 'ram7540123@gmail.com, karthik96nv@gmail.com'
 //        }
 //    }
