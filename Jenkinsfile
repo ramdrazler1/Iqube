@@ -17,27 +17,7 @@ pipeline {
                 git url: "${params.GIT_REPO_URL}", branch: "${params.GIT_BRANCH}"
             }
         }
-                 
-stage("Stop and Remove the Existing Container") {
-    agent { label "${params.AGENT}" }
-    steps {
-        script {
-            def containerStatus = sh(returnStatus: true, script: "docker inspect -f {{.State.Running}} $BUILD_NAME").trim()
-            
-            if (containerStatus == 'true') {
-                sh 'docker stop $BUILD_NAME'
-                sh 'docker rm $BUILD_NAME'
-                echo 'Container has been Stopped and Removed'
-            } else if (containerStatus == 'false') {
-                echo 'Container is not running. Skipping removal...'
-            } else {
-                echo 'Container does not exist. Skipping removal...'
-            }
-        }
-    }
-}  
-
-        
+                  
         stage("Build the Images") {
             agent { label "${params.AGENT}" }
             steps {
