@@ -18,16 +18,22 @@ pipeline {
             }
         }
                  
-        stage("Stop and Remove the Existing Container"){
-            agent { label "${params.AGENT}" }
-            steps{
-                sh '''
-                    docker stop $BUILD_NAME
-                    docker rm $BUILD_NAME
-                '''
-                echo 'Container has been Stopped and Removed'  
+     stage("Stop and Remove the Existing Container") {
+         agent { label "${params.AGENT}" }
+      steps {
+         script {
+            def containerStatus = sh(returnStatus: true, script: "docker inspect -f {{.State.Running}} $BUILD_NAME").trim()
+            
+            if (containerStatus == 'true') {
+                sh 'docker stop $BUILD_NAME'
+                sh 'docker rm $BUILD_NAME'
+                echo 'Container has been Stopped and Removed'
+            } else {
+                echo 'Container is not running or does not exist. Skipping...'
             }
-        }    
+        }
+    }
+}   
 
         
         stage("Build the Images") {
