@@ -2,7 +2,7 @@ pipeline {
     agent none
     environment {
         BUILD_NAME = 'iqube'
-        EXE_PATH = '/home/ubuntu/iqube/workspace/Dev-Test'
+        EXE_PATH = '/home/ubuntu/jenkins-slave/workspace/DevOps/Declarative-demo'
     }
     parameters {
         choice(name: 'AGENT', choices: ['Build-test', 'Sprint', 'Stage', 'UAT'], description: 'Select the Build Environment')
