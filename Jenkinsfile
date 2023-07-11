@@ -17,10 +17,8 @@ pipeline {
                 git url: "${params.GIT_REPO_URL}", branch: "${params.GIT_BRANCH}"
             }
         }
-                 
-   
 
-        
+                 
         stage("Build the Images") {
             agent { label "${params.AGENT}" }
             steps {
