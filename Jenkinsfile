@@ -15,7 +15,7 @@ pipeline {
         stage('Checkout') {
             agent { label "${params.AGENT}" }
             steps {
-                git branch: "${params.GIT_BRANCH}", url: "${params.GIT_REPO_URL}"
+                git url: "${params.GIT_REPO_URL}, branch: "${params.GIT_BRANCH}""
             }
         }
 
