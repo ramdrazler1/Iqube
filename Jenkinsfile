@@ -3,8 +3,7 @@ pipeline {
     environment {
         BUILD_NAME = 'iqube'
         EXE_PATH = '/home/ubuntu/jenkins-slave/workspace/DevOps/Declarative-demo/'
-        NEXUS_REGISTRY_URL = 'http://spanartifacts.spanllc.com/repository/'
-        NEXUS_REPOSITORY = 'test-docker'
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub')
     }
     parameters {
         choice(name: 'AGENT', choices: ['Build-test', 'Sprint', 'Stage', 'UAT'], description: 'Select the Build Environment')
@@ -45,19 +44,18 @@ pipeline {
             }
         }
 
-        stage('Publish') {
-            agent { label "${params.AGENT}" }
-            steps {
-                // Login to Nexus Docker registry
-                sh 'docker login -u devopsadmin -p SpanTEc$@2023 $NEXUS_REGISTRY_URL'
+        stage('Login to Docker') {
+           steps {
+            sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+      }
+    }
+        stage('Push Image to Docker') {
+           steps {
+             sh 'docker push $BUILD_NAME:latest'
+      }
+    }
+        
 
-                // Tag the Docker image with Nexus repository URL
-                sh 'docker tag $BUILD_NAME:latest $NEXUS_REGISTRY_URL/$NEXUS_REPOSITORY/$BUILD_NAME:latest'
-
-                // Push the Docker image to Nexus repository
-                sh 'docker push $NEXUS_REGISTRY_URL/$NEXUS_REPOSITORY/$BUILD_NAME:latest'
-            }
-        }
     }
 }
 //            post {
