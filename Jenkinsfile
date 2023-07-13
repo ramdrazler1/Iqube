@@ -45,6 +45,7 @@ pipeline {
             }
         }
         stage('Publish') {
+            agent { label "${params.AGENT}"
             steps {
                 // Login to Nexus Docker registry
                 sh 'docker login -u devopsadmin -p SpanTEc$@2023 $NEXUS_REGISTRY_URL'
