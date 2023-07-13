@@ -10,42 +10,43 @@ pipeline {
         choice(name: 'AGENT', choices: ['Build-test', 'Sprint', 'Stage', 'UAT'], description: 'Select the Build Environment')
         string(name: 'GIT_REPO_URL', description: 'Enter the Git repository URL')
         string(name: 'GIT_BRANCH', description: 'Enter the Git branch name')
-        
     }
     stages {
         stage('Checkout') {
             agent { label "${params.AGENT}" }
             steps {
-                git url: "${params.GIT_REPO_URL}", branch: "${params.GIT_BRANCH}"
+                git branch: "${params.GIT_BRANCH}", url: "${params.GIT_REPO_URL}"
             }
         }
 
-        stage("Stop and Remove the Existing Container"){
-             agent { label "${params.AGENT}" }
-              steps{
+        stage("Stop and Remove the Existing Container") {
+            agent { label "${params.AGENT}" }
+            steps {
                 sh '''
                     docker stop $BUILD_NAME
                     docker rm $BUILD_NAME
                 '''
-                echo 'Container has been Stopped and Removed'  
+                echo 'Container has been Stopped and Removed'
             }
-        }           
-                 
+        }
+
         stage("Build the Images") {
             agent { label "${params.AGENT}" }
             steps {
                 sh "docker build -t $BUILD_NAME:latest $EXE_PATH"
             }
-        }   
+        }
+
         stage("Run the Images") {
             agent { label "${params.AGENT}" }
             steps {
-                sh 'docker run -d --name iqube -p 3000:3000 $BUILD_NAME:latest '
-                echo 'Image Running in Container'  
+                sh "docker run -d --name $BUILD_NAME -p 3000:3000 $BUILD_NAME:latest"
+                echo 'Image Running in Container'
             }
         }
+
         stage('Publish') {
-            agent { label "${params.AGENT}"
+            agent { label "${params.AGENT}" }
             steps {
                 // Login to Nexus Docker registry
                 sh 'docker login -u devopsadmin -p SpanTEc$@2023 $NEXUS_REGISTRY_URL'
@@ -57,11 +58,8 @@ pipeline {
                 sh 'docker push $NEXUS_REGISTRY_URL/$NEXUS_REPOSITORY/$BUILD_NAME:latest'
             }
         }
-
-
-        }
     }
-        
+}
 //            post {
 //        success {
 //           emailext body: 'Build success', 
