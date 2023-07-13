@@ -3,7 +3,7 @@ pipeline {
     environment {
         BUILD_NAME = 'iqube'
         EXE_PATH = '/home/ubuntu/jenkins-slave/workspace/DevOps/Declarative-demo/'
-        NEXUS_REGISTRY_URL = '34.196.195.184:8081/repository'
+        NEXUS_REGISTRY_URL = 'http://spanartifacts.spanllc.com/repository/'
         NEXUS_REPOSITORY = 'test-docker'
     }
     parameters {
