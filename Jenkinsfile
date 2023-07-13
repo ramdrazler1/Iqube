@@ -45,11 +45,13 @@ pipeline {
         }
 
         stage('Login to Docker') {
+           agent { label "${params.AGENT}" }
            steps {
             sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
       }
     }
         stage('Push Image to Docker') {
+           agent { label "${params.AGENT}" } 
            steps {
              sh 'docker push $BUILD_NAME:latest'
       }
