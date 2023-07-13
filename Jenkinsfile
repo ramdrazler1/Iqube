@@ -18,6 +18,16 @@ pipeline {
             }
         }
 
+        stage("Stop and Remove the Existing Container"){
+             agent { label "${params.AGENT}" }
+              steps{
+                sh '''
+                    docker stop $BUILD_NAME
+                    docker rm $BUILD_NAME
+                '''
+                echo 'Container has been Stopped and Removed'  
+            }
+        }           
                  
         stage("Build the Images") {
             agent { label "${params.AGENT}" }
