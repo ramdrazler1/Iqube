@@ -45,12 +45,12 @@ pipeline {
             }
         }
 
-     stage('Push Docker Image') {
+    stage('Push') {
         steps {
-        // Push the Docker image to the registry
-        withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
-          sh 'docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD'
-          sh 'docker push $BUILD_NAME:latest'
+          // Push the Docker image to the registry
+           withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'Ramkumar@123', usernameVariable: 'ramkumar97')]) {
+             sh 'docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD'
+             sh 'docker push $BUILD_NAME:latest'
         }
       }
     }
