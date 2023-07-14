@@ -58,7 +58,6 @@ pipeline {
         
 
     }
-}
             post {
        success {
            emailext body: 'Build success', 
@@ -66,7 +65,10 @@ pipeline {
                      to: 'devops@spantechnologyservices.com, ramkumar@spantechnologyservices.com'
         }
     }
-        
+    
+}
+
+
 //    }
 //}
 //        stage("Git Checkout") {
