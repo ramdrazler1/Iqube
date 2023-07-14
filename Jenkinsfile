@@ -58,15 +58,17 @@ pipeline {
         
 
     }
-    post {
-       success {
-           emailext (
-                 body: 'Build success', 
-                 subject: 'Build Notification', 
-                 to: 'ramkumar@spantechnologyservices.com'
-               )
-        }
-    }
+post {
+  success {
+    emailext (
+      subject: "Build Notification",
+      body: "Build Success",
+      to: "ramkumar@spantechnologyservices.com",
+      attachLog: true,
+    )
+  }
+}
+
     
 }
 
