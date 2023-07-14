@@ -59,13 +59,13 @@ pipeline {
 
     }
 }
-//            post {
-//        success {
-//           emailext body: 'Build success', 
-//                     subject: 'Build Notification', 
-//                     to: 'ram7540123@gmail.com, karthik96nv@gmail.com'
-//        }
-//    }
+            post {
+       success {
+           emailext body: 'Build success', 
+                     subject: 'Build Notification', 
+                     to: 'devops@spantechnologyservices.com, ramkumar@spantechnologyservices.com'
+        }
+    }
         
 //    }
 //}
