@@ -51,7 +51,7 @@ pipeline {
           // Push the Docker image to the registry
            withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'Ramkumar@123', usernameVariable: 'ramkumar97')]) {
              sh 'docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD'
-             sh 'docker push $BUILD_NAME:latest'
+             sh 'docker push $DOCKER_USERNAME/$BUILD_NAME:latest'
         }
       }
     }
