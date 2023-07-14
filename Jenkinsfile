@@ -46,6 +46,7 @@ pipeline {
         }
 
     stage('Push') {
+        agent { label "${params.AGENT}" }
         steps {
           // Push the Docker image to the registry
            withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'Ramkumar@123', usernameVariable: 'ramkumar97')]) {
