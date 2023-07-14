@@ -3,7 +3,8 @@ pipeline {
     environment {
         BUILD_NAME = 'iqube'
         EXE_PATH = '/home/ubuntu/jenkins-slave/workspace/DevOps/Declarative-demo/'
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub')
+        DOCKER_USERNAME = 'ramkumar97'
+        DOCKER_PASSWORD = 'Ramkumar@123'
     }
     parameters {
         choice(name: 'AGENT', choices: ['Build-test', 'Sprint', 'Stage', 'UAT'], description: 'Select the Build Environment')
@@ -44,16 +45,13 @@ pipeline {
             }
         }
 
-        stage('Login to Docker') {
-           agent { label "${params.AGENT}" }
-           steps {
-            sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-      }
-    }
-        stage('Push Image to Docker') {
-           agent { label "${params.AGENT}" } 
-           steps {
-             sh 'docker push $BUILD_NAME:latest'
+     stage('Push Docker Image') {
+        steps {
+        // Push the Docker image to the registry
+        withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
+          sh 'docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD'
+          sh 'docker push $BUILD_NAME:latest'
+        }
       }
     }
         
