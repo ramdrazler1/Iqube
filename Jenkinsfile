@@ -62,7 +62,7 @@ pipeline {
        success {
            emailext body: 'Build success', 
                      subject: 'Build Notification', 
-                     to: 'devops@spantechnologyservices.com, ramkumar@spantechnologyservices.com'
+                     to: 'ramkumar@spantechnologyservices.com'
         }
     }
     
