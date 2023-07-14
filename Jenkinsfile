@@ -40,7 +40,7 @@ pipeline {
         stage("Run the Images") {
             agent { label "${params.AGENT}" }
             steps {
-                sh "docker run -d --name $DOCKER_USERNAME/$BUILD_NAME -p 3000:3000 $DOCKER_USERNAME/$BUILD_NAME:latest"
+                sh "docker run -d --name $BUILD_NAME -p 3000:3000 $DOCKER_USERNAME/$BUILD_NAME:latest"
                 echo 'Image Running in Container'
             }
         }
